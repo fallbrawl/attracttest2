@@ -54,7 +54,7 @@ public class ListFragment extends Fragment implements SearchView.OnQueryTextList
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.list_fragment, null);
-        listView = (ListView) view.findViewById(R.id.list_superheroes);
+        listView = view.findViewById(R.id.list_superheroes);
         retrofitManager = new RetrofitManager();
 
         superheroService = retrofitManager.getSuperheroService();
@@ -90,9 +90,6 @@ public class ListFragment extends Fragment implements SearchView.OnQueryTextList
                 try {
 
                     Response<ArrayList<SuperheroProfile>> response = superheroService.getListSuperheroes().execute();
-
-
-
 
                     if (response.isSuccessful()) {
 

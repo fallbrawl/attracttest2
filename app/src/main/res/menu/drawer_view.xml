@@ -3,22 +3,25 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_list_fragment"
+            android:orderInCategory="0"
             android:title="Superheroes" />
     </group>
 
-    <item android:title="RSS">
-        <menu>
-            <group android:checkableBehavior="single">
-                <item
-                    android:id="@+id/nav_rss_channel_1"
-                    android:title="Rss channel 1" />
-                <item
-                    android:id="@+id/nav_rss_channel_2"
-                    android:title="Rss channel 2" />
-                <item
-                    android:id="@+id/nav_rss_channel_3"
-                    android:title="Rss channel 3" />
-            </group>
-        </menu>
-    </item>
+
+    <group
+        android:id="@+id/rss_items_group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_rss_channel_1"
+            android:orderInCategory="1"
+            android:title="Rss channel 1" />
+        <item
+            android:id="@+id/nav_rss_channel_2"
+            android:orderInCategory="1"
+            android:title="Rss channel 2" />
+        <item
+            android:id="@+id/nav_rss_channel_3"
+            android:orderInCategory="1"
+            android:title="Rss channel 3" />
+    </group>
 </menu>

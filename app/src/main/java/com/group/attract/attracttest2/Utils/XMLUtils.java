@@ -103,9 +103,9 @@ public class XMLUtils {
 
 
     public void fetchXML() {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
+//        Thread thread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
 
                 try {
                     URL url = new URL(urlString);
@@ -126,14 +126,13 @@ public class XMLUtils {
                     myparser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
                     myparser.setInput(stream, null);
 
-                     ArrayList<RssItem> wow = parseXMLAndStoreIt(myparser);
+                    parseXMLAndStoreIt(myparser);
                     stream.close();
-                    rssItems.addAll(wow);
-                    Log.e("staty", "done" + wow.size());
+
                 } catch (Exception e) {
                 }
             }
-        });
-        thread.start();
-    }
+//        });
+//        thread.start();
+    //}
 }

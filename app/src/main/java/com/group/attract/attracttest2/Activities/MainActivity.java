@@ -1,5 +1,6 @@
 package com.group.attract.attracttest2.Activities;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -9,11 +10,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.group.attract.attracttest2.Fragments.ListFragment;
-import com.group.attract.attracttest2.Fragments.RssFragment;
+import com.group.attract.attracttest2.Fragments.RssListFragment;
 import com.group.attract.attracttest2.R;
 import com.group.attract.attracttest2.Utils.NetworkUtils;
 
@@ -23,7 +25,12 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private ListFragment listFragments;
     private NavigationView nvDrawer;
-    private RssFragment rssFragment;
+    private RssListFragment rssFragment;
+    private String currentFrag;
+
+    private static final String URL1 = "http://www.techlearning.com/RSS";
+    private static final String URL2 = "https://www.ed.gov/feed";
+    private static final String URL3 = "https://www.macworld.com/index.rss";
 
     // Make sure to be using android.support.v7.app.ActionBarDrawerToggle version.
     // The android.support.v4.app.ActionBarDrawerToggle has been deprecated.
@@ -34,13 +41,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         if(NetworkUtils.isNetworkAvailable(this)){
             // Set the initial fragment with list
             fragmentManager = getSupportFragmentManager();
             listFragments = new ListFragment();
-
+            currentFrag = "1";
             fragmentManager.beginTransaction().replace(R.id.flContent, listFragments).commit();
-
             // Set a Toolbar to replace the ActionBar.
             toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
@@ -104,28 +111,45 @@ public class MainActivity extends AppCompatActivity {
 
     public void selectDrawerItem (MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
-        rssFragment = new RssFragment();
+        String temp = currentFrag;
+        rssFragment = new RssListFragment();
         Fragment fragment;
-
+        Bundle bundle = new Bundle();
         switch(menuItem.getItemId()) {
             case R.id.nav_list_fragment:
                 fragment = listFragments;
+                currentFrag = "1";
                 break;
             case R.id.nav_rss_channel_1:
+                bundle.putString("url",URL1);
                 fragment = rssFragment;
+                currentFrag = "2";
                 break;
             case R.id.nav_rss_channel_2:
+                bundle.putString("url",URL2);
                 fragment = rssFragment;
+                currentFrag = "3";
                 break;
             case R.id.nav_rss_channel_3:
+                bundle.putString("url",URL3);
                 fragment = rssFragment;
+                currentFrag = "4";
                 break;
             default:
-                fragment = listFragments;
+                fragment = rssFragment;
+                Intent intent = menuItem.getIntent();
+                bundle.putString("url", intent.getStringExtra("url"));
+                currentFrag = String.valueOf(menuItem.getItemId());
+                Log.e("staty",  String.valueOf(menuItem.getItemId()) +" default " + intent.getStringExtra("url"));
+
         }
 
-        // Insert the fragment by replacing any existing fragment
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+
+        fragment.setArguments(bundle);
+       if (!currentFrag.equals(temp)) {
+            // Insert the fragment by replacing any existing fragment
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
+        }
 
         // Highlight the selected item has been done by NavigationView
         menuItem.setChecked(true);
@@ -136,5 +160,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    public NavigationView getNav() {
+        return nvDrawer;
+    }
 }

@@ -26,12 +26,14 @@ import java.util.ArrayList;
  */
 
 public class FragmentPagerSupport extends FragmentActivity {
-    private static final int NUM_ITEMS = 8;
+    private static int NUM_ITEMS;
 
     private MyAdapter mAdapter;
     private ViewPager mPager;
 
     private ArrayList<SuperheroProfile> profiles;
+
+
     public int currPosition;
 
     @Override
@@ -43,6 +45,9 @@ public class FragmentPagerSupport extends FragmentActivity {
         Intent heroInfo = getIntent();
         Bundle bundle = heroInfo.getExtras();
         profiles = (ArrayList<SuperheroProfile>) bundle.getSerializable("profile");
+
+        //For the filtered array
+        NUM_ITEMS = profiles.size();
         currPosition = bundle.getInt("currentPosition");
 
         mAdapter = new MyAdapter(getSupportFragmentManager(), profiles);

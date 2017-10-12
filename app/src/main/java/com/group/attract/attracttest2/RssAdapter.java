@@ -36,6 +36,7 @@ public class RssAdapter extends ArrayAdapter<RssItem> {
             holder = new ViewHolder();
 
             holder.title = convertView.findViewById(R.id.rss_item_title);
+            holder.shortDescription = convertView.findViewById(R.id.rss_short_desc);
 
             convertView.setTag(holder);
         } else {
@@ -48,12 +49,14 @@ public class RssAdapter extends ArrayAdapter<RssItem> {
 
         // Bind the data efficiently with the holder.
         holder.title.setText(rssItem.getTitle());
+        holder.shortDescription.setText(rssItem.getDescription());
 
         return convertView;
     }
     static class ViewHolder {
 
         TextView title;
+        TextView shortDescription;
 
     }
 }
