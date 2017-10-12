@@ -26,7 +26,6 @@ import com.group.attract.attracttest2.Utils.SuperheroService;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 import retrofit2.Response;
 
@@ -54,10 +53,12 @@ public class ListFragment extends Fragment implements SearchView.OnQueryTextList
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.heroes_list_fragment, null);
+        View view = inflater.inflate(R.layout.list_fragment, null);
         listView = (ListView) view.findViewById(R.id.list_superheroes);
         retrofitManager = new RetrofitManager();
+
         superheroService = retrofitManager.getSuperheroService();
+
         superheroProfiles = new ArrayList<>();
         superheroAdapter = new SuperheroAdapter(getContext(), superheroProfiles);
         listView.setAdapter(superheroAdapter);
@@ -89,10 +90,13 @@ public class ListFragment extends Fragment implements SearchView.OnQueryTextList
                 try {
 
                     Response<ArrayList<SuperheroProfile>> response = superheroService.getListSuperheroes().execute();
+
+
+
+
                     if (response.isSuccessful()) {
 
                         ArrayList<SuperheroProfile> temp = response.body();
-                        Log.e("staty", "size temp " + temp.size());
 
                         Message msg;
                         msg = handler.obtainMessage(0, 0, 0, temp);

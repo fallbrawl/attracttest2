@@ -2,6 +2,7 @@ package com.group.attract.attracttest2.Utils;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 /**
  * Created by paul on 11.10.17.
