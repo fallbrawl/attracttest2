@@ -1,19 +1,25 @@
 package com.group.attract.attracttest2.Fragments;
 
+import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +29,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.group.attract.attracttest2.Activities.MainActivity;
@@ -31,6 +38,8 @@ import com.group.attract.attracttest2.RssAdapter;
 import com.group.attract.attracttest2.RssItem;
 import com.group.attract.attracttest2.SuperheroProfile;
 import com.group.attract.attracttest2.Utils.XMLUtils;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -71,6 +80,7 @@ public class RssListFragment extends Fragment {
 
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -87,28 +97,40 @@ public class RssListFragment extends Fragment {
         alertDialog.setTitle("Add RSS");
         alertDialog.setMessage("Enter URL:");
         final EditText addRssEdit;
-        addRssEdit = new EditText(getContext());
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+        final TextInputEditText textInputEditText;
+
+        //как изменить свойство xml типа app:
+        //например добавить ошибку к текстинпутлэйаут
+
+        textInputEditText = new TextInputEditText(getContext());
+        textInputEditText.setMaxLines(1);
+        textInputEditText.setInputType(InputType.TYPE_CLASS_TEXT);
+
+        // TextInputLayout
+        TextInputLayout textInputLayout = new TextInputLayout(getContext());
+        textInputLayout.setId(View.generateViewId());
+        RelativeLayout.LayoutParams textInputLayoutParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        textInputLayout.setLayoutParams(textInputLayoutParams);
+
+        // Then you add editText into a textInputLayout
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
-        addRssEdit.setLayoutParams(lp);
-        alertDialog.setView(addRssEdit);
+        textInputLayout.addView(textInputEditText, lp);
+
+//
+//        addRssEdit = new EditText(getContext());
+//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.MATCH_PARENT,
+//                LinearLayout.LayoutParams.MATCH_PARENT);
+//        addRssEdit.setLayoutParams(lp);
+        alertDialog.setView(textInputLayout);
         alertDialog.setIcon(R.drawable.ic_healing_black_24dp);
         alertDialog.setPositiveButton("ADD",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        customURL = addRssEdit.getText().toString();
-                        if (customURL.length() != 0) {
 
-                            Intent intent = new Intent();
-                            intent.putExtra("url", customURL);
-
-                            menu.add(R.id.rss_items_group, itemId++, 1, customURL).setCheckable(true).setIntent(intent);
-
-                        } else {
-                            Toast.makeText(getContext(),
-                                    "Add smth!", Toast.LENGTH_SHORT).show();
-                        }
                     }
                 });
         alertDialog.setNegativeButton("NO",
@@ -126,10 +148,34 @@ public class RssListFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-
                 dialog.show();
 
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        boolean wntToClose = false;
+                        //Do stuff, possibly set wantToCloseDialog to true then...
+                        customURL = textInputEditText.getText().toString();
+                        if (customURL.length() != 0) {
+                            if (Patterns.WEB_URL.matcher(customURL).matches()){
+                                Intent intent = new Intent();
+                                intent.putExtra("url", customURL);
 
+                                menu.add(R.id.rss_items_group, itemId++, 1, customURL).setCheckable(true).setIntent(intent);
+                                wntToClose = true;
+                            } else {textInputEditText.setError("Enter a valid URL!");}
+
+
+                        } else {
+                            textInputEditText.setError("ADD SOME TEXT HERE!");
+                        }
+                        //else dialog stays open.
+                        //Make sure you have an obvious way to close the dialog especially if you set cancellable to false.
+                        if (wntToClose) dialog.dismiss();
+                    }
+                });
             }
         });
 

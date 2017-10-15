@@ -131,8 +131,7 @@ public class FragmentPagerSupport extends FragmentActivity {
             ((TextView) tvDate).setText(temp);
 
             View ivAvatar = v.findViewById(R.id.avatar);
-            Picasso.with(getContext()).load(profile.getImage()).centerCrop().fit().placeholder(R.mipmap.ic_launcher).into((ImageView) ivAvatar);
-
+            Picasso.with(getContext()).load(profile.getImage()).centerInside().fit().placeholder(R.mipmap.ic_launcher).into((ImageView) ivAvatar);
             return v;
         }
     }

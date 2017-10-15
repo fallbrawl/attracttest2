@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">attracttest2</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="nav_draw_superheroes">Superheroes</string>
+    <string name="nav_draw_rss1">Rss1</string>
+    <string name="nav_draw_rss2">Rss2</string>
+    <string name="nav_draw_rss3">Rss3</string>
 </resources>

@@ -10,11 +10,13 @@
         android:textStyle="bold"
         android:textAlignment="center"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/rss_short_desc"
-        android:maxLines="2"
+        android:textAlignment="center"
+        android:maxLines="1"
         android:minLines="1"
         android:textColor="@android:color/darker_gray"
         android:ellipsize="end"/>

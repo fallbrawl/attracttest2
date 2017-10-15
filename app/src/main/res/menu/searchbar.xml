@@ -5,7 +5,7 @@
     xmlns:attracttest="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/search"
         android:title="Searchhere"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_search_black_24dp"
         attracttest2:showAsAction="collapseActionView|ifRoom"
         attracttest2:actionViewClass="android.support.v7.widget.SearchView" />
 

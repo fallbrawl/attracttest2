@@ -13,9 +13,10 @@
         android:textAlignment="center"
         />
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:id="@+id/avatar" />
+        android:layout_width="@dimen/superhero_profile_width"
+        android:layout_height="@dimen/superhero_profile_height"
+        android:id="@+id/avatar"
+        android:layout_gravity="center"/>
     <TextView
         android:id="@+id/datetime"
         android:layout_width="match_parent"
@@ -23,10 +24,17 @@
         android:textAlignment="center"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="16dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:layout_height="2dp"
+        android:background="#c0c0c0"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/desc"/>
+        android:id="@+id/desc"
+        android:textAlignment="center"/>
 
 
 </LinearLayout>

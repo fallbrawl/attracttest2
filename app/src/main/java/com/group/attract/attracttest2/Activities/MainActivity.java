@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String URL1 = "http://www.techlearning.com/RSS";
     private static final String URL2 = "https://www.ed.gov/feed";
-    private static final String URL3 = "https://www.macworld.com/index.rss";
+    private static final String URL3 = "http://feeds.bbci.co.uk/news/world/rss.xml";
 
     // Make sure to be using android.support.v7.app.ActionBarDrawerToggle version.
     // The android.support.v4.app.ActionBarDrawerToggle has been deprecated.
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        if(NetworkUtils.isNetworkAvailable(this)){
+        if (NetworkUtils.isNetworkAvailable(this)){
             // Set the initial fragment with list
             fragmentManager = getSupportFragmentManager();
             listFragments = new ListFragment();
@@ -63,7 +63,8 @@ public class MainActivity extends AppCompatActivity {
 
             // Setup drawer view
             setupDrawerContent(nvDrawer);
-        } else Toast.makeText(this, "NO INTERNETO!!!", Toast.LENGTH_LONG).show();
+        } else {Toast.makeText(this, "NO INTERNETO!!!", Toast.LENGTH_LONG).show();
+        finish();}
     }
 
     @Override

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">аттракттест2</string>
+    <string name="nav_draw_superheroes">Супергерои</string>
+    <string name="nav_draw_rss1">РСС1</string>
+    <string name="nav_draw_rss2">РСС2</string>
+    <string name="nav_draw_rss3">РСС3</string>
+</resources>

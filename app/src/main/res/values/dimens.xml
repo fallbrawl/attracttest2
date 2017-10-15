@@ -4,4 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="superhero_img_list">64dp</dimen>
     <dimen name="activity_margin">8dp</dimen>
+    <dimen name="superhero_profile_width">200dp</dimen>
+    <dimen name="superhero_profile_height">120dp</dimen>
 </resources>

@@ -1,7 +1,6 @@
 package com.group.attract.attracttest2;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +35,7 @@ public class SuperheroAdapter extends ArrayAdapter<SuperheroProfile> implements 
         ViewHolder holder;
 
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.list_item, null);
+            convertView = mInflater.inflate(R.layout.superhero_list_item, null);
 
             // Creates a ViewHolder and store references to the children views
             // we want to bind data to.
